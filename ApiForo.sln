@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiForo", "ApiForo\ApiForo.csproj", "{3E85D932-30D8-4999-A7ED-64094685E98D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E85D932-30D8-4999-A7ED-64094685E98D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E85D932-30D8-4999-A7ED-64094685E98D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E85D932-30D8-4999-A7ED-64094685E98D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E85D932-30D8-4999-A7ED-64094685E98D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
