@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using ApiForo.Data;
 using ApiForo.ForosMapper;
 using ApiForo.Repository;
@@ -9,7 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AplicationDbContext>(opciones =>
 {
     opciones.UseSqlServer(builder.Configuration.GetConnectionString("Connection"));
+    
+   
 });
+
 
 //agregamos los repositorios
 builder.Services.AddScoped<IComentarioRepositorio,ComentarioRepositorio>();
@@ -19,7 +23,13 @@ builder.Services.AddAutoMapper(typeof(ForosMapper));
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

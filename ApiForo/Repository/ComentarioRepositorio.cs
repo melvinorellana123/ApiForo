@@ -1,6 +1,7 @@
 ﻿using ApiForo.Data;
 using ApiForo.Models;
 using ApiForo.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiForo.Repository;
 
@@ -15,7 +16,9 @@ public class ComentarioRepositorio : IComentarioRepositorio
 
     public IEnumerable<Comentario> GetComentarios()
     {
-        return _db.Comentario.ToList();
+        //obten todos los comentarios con todos sus hijos usando query sintax
+       return _db.Comentario.Where(comentario => comentario.ComentarioPadreId == null ).ToList();
+       
     }
 
     public Comentario GetComentario(int comentarioId)

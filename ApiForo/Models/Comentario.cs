@@ -14,6 +14,6 @@ public class Comentario
     public bool Editado { get; set; }
     
     public int?  ComentarioPadreId { get; set; }
-    public Comentario ComentarioPadre { get; set; }
-    public ICollection<Comentario> Hijos { get; set; } = null;
+    public virtual Comentario ComentarioPadre { get; set; }
+    public virtual ICollection<Comentario> Hijos { get; set; } = null;
 }
