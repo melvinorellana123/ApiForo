@@ -1,4 +1,7 @@
 using ApiForo.Data;
+using ApiForo.ForosMapper;
+using ApiForo.Repository;
+using ApiForo.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +11,11 @@ builder.Services.AddDbContext<AplicationDbContext>(opciones =>
     opciones.UseSqlServer(builder.Configuration.GetConnectionString("Connection"));
 });
 
+//agregamos los repositorios
+builder.Services.AddScoped<IComentarioRepositorio,ComentarioRepositorio>();
+
+//agregar el auto mapper
+builder.Services.AddAutoMapper(typeof(ForosMapper));
 
 // Add services to the container.
 
