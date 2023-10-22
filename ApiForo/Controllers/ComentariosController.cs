@@ -4,6 +4,7 @@ using ApiForo.Models.Dto;
 using ApiForo.Repository.IRepository;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ApiForo.Controllers
 {
@@ -85,7 +86,13 @@ namespace ApiForo.Controllers
         [HttpPut("{id:int}", Name = "Actualizar")]
         public IActionResult ActualizarComentario(int id, [FromBody] ComentarioDto comentarioDto)
         {
-            if (comentarioDto == null || id != comentarioDto.Id)
+            comentarioDto.Id = id;
+            if (!_ctRepo.ExisteComentario(id))
+            {
+                return NotFound();
+            }
+            if (comentarioDto.Contenido.IsNullOrEmpty())
+         
             {
                 return BadRequest(ModelState);
             }
@@ -105,13 +112,21 @@ namespace ApiForo.Controllers
         [HttpDelete("{id:int}", Name = "Borrar")]
         public IActionResult BorrarComentario(int id)
         {
-            if (!_ctRepo.ExisteComentario(id))
+            
+          
+            var comentario = _ctRepo.GetComentario(id);
+
+            if (comentario == null)
             {
                 return NotFound();
             }
- 
-            var comentario = _ctRepo.GetComentario(id);
- 
+
+            if (comentario.Hijos.Count > 0)
+            {
+                return UnprocessableEntity("No se puede borrar el comentario porque tiene hijos asociados");
+            }
+            
+            
             if (!_ctRepo.BorrarComentario(comentario))
             {
                 ModelState.AddModelError("", $"Algo salio mal borrando el registro {comentario.Id}");
